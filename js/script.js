@@ -100,19 +100,37 @@ document.addEventListener('DOMContentLoaded', function() {
         return "積極的成長";
     }
 
+    function getInvestmentImage(investmentType) {
+        switch(investmentType) {
+            case "保守的":
+                return "images/conservative.png";
+            case "やや保守的":
+                return "images/moderately_conservative.png";
+            case "バランス型":
+                return "images/balanced.png";
+            case "成長志向":
+                return "images/buffett.png";
+            case "積極的成長":
+                return "images/soros.png";
+            default:
+                return "images/default.png";
+        }
+    }
+    
     function showResult() {
         questionContainer.style.display = 'none';
         resultContainer.style.display = 'block';
         
         const investmentType = getInvestmentType(score);
+        const investmentImage = getInvestmentImage(investmentType);
+        
         resultContainer.innerHTML = `
             <h2>あなたの投資タイプ</h2>
-            <img src="/api/placeholder/200/200" alt="${investmentType}" class="result-image">
+            <img src="${investmentImage}" alt="${investmentType}" class="result-image">
             <p><strong>${investmentType}</strong></p>
             <p>スコア: ${score} / ${questions.length * 4}</p>
         `;
-    }
-
+    }    
     function restartQuiz() {
         currentQuestion = 0;
         score = 0;
